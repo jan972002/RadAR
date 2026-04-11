@@ -15,6 +15,8 @@ GUI module is able to save your scans in .npy .png .rr and .obj formats
 
 .obj save is broken at the time of writing this readme. .rr format is custom file format based on .npy array format. 
 
+GUI and low level code were written in polish. I'm not planning to make english translation. For estended command list of low level communication type /help in gui!
+
 <img width="2879" height="1726" alt="image" src="https://github.com/user-attachments/assets/347c9ea5-5975-45e7-b853-b5a7681f40ff" />
 
 
