@@ -690,21 +690,17 @@ class LidarGui(QMainWindow):
             self.list_w.setCurrentRow(0)
 
     def load_scan(self):
-        # Dodajemy oba rozszerzenia do filtra plików
         f, _ = QFileDialog.getOpenFileName(self, "Otworz skan", "", "Lidar Files (*.npy *.rr)")
 
         if f:
             file_name = os.path.basename(f)
             try:
-                # Sprawdzamy rozszerzenie pliku (małymi literami dla pewności)
                 if f.lower().endswith('.rr'):
-                    # Logika dla Twojego formatu RadAR
                     points = []
                     with open(f, 'r', encoding='utf-8') as file:
                         for line in file:
                             line = line.strip()
                             if line:
-                                # Obsługujemy split po przecinku (możesz zmienić na split() jeśli używasz spacji)
                                 coords = [float(x) for x in line.split(',')]
                                 if len(coords) == 3:
                                     points.append(coords)
@@ -712,14 +708,11 @@ class LidarGui(QMainWindow):
                     self.log.append(f"Zaladowano format .rr: {file_name}")
 
                 else:
-                    # Standardowa logika dla plików binarnych .npy
                     pts = np.load(f)
                     self.log.append(f"Zaladowano format .npy: {file_name}")
 
-                # Wspólna część dla obu formatów - dodawanie do widoku
                 if pts.size > 0:
                     self.add_layer(file_name, (1, 1, 1, 1))
-                    # Pobieramy nazwę z listy (zakładając, że add_layer ją tam ustawia)
                     actual_name = self.list_w.currentItem().text()
                     self.scans[actual_name]['pts'] = pts
                     self.refresh_view(actual_name)
